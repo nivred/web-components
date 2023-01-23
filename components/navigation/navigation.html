@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Navigation</title>
+  <link rel="stylesheet" href="./styles/reset.css">
+  <link rel="stylesheet" href="./styles/navigation.css">
+</head>
+<body>
+  
+  <header class="main-navigation">
+    <button class="hamburger trigger">
+      <span class="read-only">Open Menu</span>
+    </button>
+    <div class="container">
+      <div class="brand">
+        <strong>BRAND LOGO</strong>
+      </div>
+      <nav>
+        <ul>
+          <li >
+            <a href="#" aria-current="page">
+              Home
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              About
+            </a>
+          </li>
+          <li class="dropdown">
+            <button class="trigger">
+              Portfolio
+            </button>
+            <ul class="menu">
+              <li><a href="#">Menu Item</a></li>
+              <li><a href="#">Second Menu Item</a></li>
+              <li><a href="#">The Last Menu Item</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <button class="trigger">
+              Products and Services
+            </button>
+            <ul class="menu">
+              <li><a href="#">Menu Item</a></li>
+              <li><a href="#">Second Menu Item</a></li>
+              <li><a href="#">The Last Menu Item</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <script>
+    const buttons = document.querySelectorAll('.trigger');
+    const navItems = document.querySelectorAll('nav a');
+
+    document.addEventListener('click', (e)=> {
+
+      // add aria-current attribute selected link 
+      if (e.target.hasAttribute('href')) {
+        for (const navItem of navItems) {
+          navItem.removeAttribute('aria-current');
+        }
+        for (const button of buttons) {
+          button.classList.remove('current');
+        }
+        e.target.setAttribute('aria-current', 'page');
+      } 
+      if (e.target.closest('.menu')) {
+        e.target.closest('.menu').previousElementSibling.classList.add('current');
+      }
+
+      // add 'open' class to selected button 
+      if (e.target.classList.contains('open')) {
+        e.target.classList.toggle('open');
+      } else if (e.target.classList.contains('trigger')) {
+        for (const button of buttons) {
+          if (!button.classList.contains('hamburger')) {
+            button.classList.remove('open');
+          }
+        }
+        e.target.classList.add('open');
+      } else {
+        for (const button of buttons) {
+          button.classList.remove('open');
+        }
+      }
+    })
+  </script>
+
+</body>
+</html>
